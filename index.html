@@ -12,14 +12,14 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh; /* Cambiado */
+      height: 100vh;
       font-family: 'Dancing Script', cursive;
       color: #8b0000;
       text-align: center;
       padding: 20px;
+      overflow: hidden;
       position: relative;
       margin: 0;
-      /* overflow: hidden; eliminado para permitir scroll */
     }
     h1, p {
       opacity: 0;
@@ -52,7 +52,7 @@
       opacity: 1;
       animation: fadeIn 2s ease forwards;
       animation-delay: 2s;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* para que en móvil los botones bajen si no caben */
     }
     .boton {
       font-size: 1.5rem;
@@ -63,8 +63,8 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       min-width: 140px;
+      flex: 1 1 140px; /* que crezca y se reduzca, mínimo 140px */
       max-width: 180px;
-      flex: 1 1 140px;
     }
     .boton.si {
       background-color: #ff69b4;
@@ -78,6 +78,8 @@
     .boton.no:hover {
       background-color: #666;
     }
+
+    /* Animaciones */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -128,6 +130,7 @@
       }
     }
 
+    /* Media queries para pantallas pequeñas */
     @media (max-width: 480px) {
       h1 {
         font-size: 2.5rem;
@@ -162,11 +165,13 @@
   <div class="emoji">💍❤️👰</div>
 
   <form action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="_blank">
+    <input type="hidden" name="_next" value="https://mel19matamoros.github.io/propuesta-cris/">
     <input type="hidden" name="Cristofer dijo" value="¡Sí, acepto casarme contigo! 💍❤️">
     <button type="submit" class="boton si">💖 Sí, acepto</button>
   </form>
 
   <form action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="_blank" style="margin-top: 1rem;">
+    <input type="hidden" name="_next" value="https://mel19matamoros.github.io/propuesta-cris/">
     <input type="hidden" name="Cristofer dijo" value="No, gracias. Pero te quiero igual. 💔">
     <button type="submit" class="boton no">❌ No, gracias</button>
   </form>
