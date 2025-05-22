@@ -12,14 +12,14 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh; /* Cambiado */
       font-family: 'Dancing Script', cursive;
       color: #8b0000;
       text-align: center;
       padding: 20px;
-      overflow: hidden;
       position: relative;
       margin: 0;
+      /* overflow: hidden; eliminado para permitir scroll */
     }
     h1, p {
       opacity: 0;
@@ -52,7 +52,7 @@
       opacity: 1;
       animation: fadeIn 2s ease forwards;
       animation-delay: 2s;
-      flex-wrap: wrap; /* para que en móvil los botones bajen si no caben */
+      flex-wrap: wrap;
     }
     .boton {
       font-size: 1.5rem;
@@ -63,8 +63,8 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       min-width: 140px;
-      flex: 1 1 140px; /* que crezca y se reduzca, mínimo 140px */
       max-width: 180px;
+      flex: 1 1 140px;
     }
     .boton.si {
       background-color: #ff69b4;
@@ -78,8 +78,6 @@
     .boton.no:hover {
       background-color: #666;
     }
-
-    /* Animaciones */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -130,7 +128,6 @@
       }
     }
 
-    /* Media queries para pantallas pequeñas */
     @media (max-width: 480px) {
       h1 {
         font-size: 2.5rem;
@@ -186,3 +183,4 @@
   </script>
 </body>
 </html>
+
