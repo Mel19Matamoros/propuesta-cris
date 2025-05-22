@@ -79,7 +79,6 @@
       background-color: #666;
     }
 
-    /* Animaciones */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -130,7 +129,6 @@
       }
     }
 
-    /* Media queries para pantallas pequeñas */
     @media (max-width: 480px) {
       h1 {
         font-size: 2.5rem;
@@ -157,7 +155,6 @@
       }
     }
 
-    /* Notificación estilo WhatsApp arriba */
     #notification {
       position: fixed;
       top: 20px;
@@ -188,6 +185,11 @@
       font-weight: bold;
       font-size: 1.5rem;
     }
+
+    /* iframe oculto para enviar formularios */
+    iframe[name="hidden_iframe"] {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -198,12 +200,15 @@
   <p>¿Quieres pasar mucho tiempo a mi lado?</p>
   <div class="emoji">💖🌹✨</div>
 
-  <form id="form-yes" action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="_blank">
+  <!-- iframe oculto para enviar formularios -->
+  <iframe name="hidden_iframe"></iframe>
+
+  <form id="form-yes" action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="hidden_iframe">
     <input type="hidden" name="Cristofer dijo" value="¡Sí, quiero pasar mucho tiempo contigo!">
     <button type="submit" class="boton si">Sí, quiero</button>
   </form>
 
-  <form id="form-no" action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="_blank" style="margin-top: 1rem;">
+  <form id="form-no" action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="hidden_iframe" style="margin-top: 1rem;">
     <input type="hidden" name="Cristofer dijo" value="No, gracias. Pero te quiero igual.">
     <button type="submit" class="boton no">No, gracias</button>
   </form>
@@ -219,11 +224,11 @@
       }, 3500);
     }
 
-    document.getElementById('form-yes').addEventListener('submit', function() {
+    // Mostrar notificación al enviar el formulario (submit)
+    document.getElementById('form-yes').addEventListener('submit', () => {
       showNotification("¡Gracias! Tu respuesta ha sido enviada");
     });
-
-    document.getElementById('form-no').addEventListener('submit', function() {
+    document.getElementById('form-no').addEventListener('submit', () => {
       showNotification("¡Gracias! Tu respuesta ha sido enviada");
     });
 
