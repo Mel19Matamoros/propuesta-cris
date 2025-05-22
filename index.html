@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Una Pregunta Especial 💕</title>
+  <title>Una Pregunta Especial 💍</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
     body {
@@ -55,20 +55,16 @@
       flex-wrap: wrap;
     }
     .boton {
-      font-size: 1.3rem;
-      padding: 12px 0;
+      font-size: 1.4rem;
+      padding: 8px 0;
       border-radius: 10px;
       border: none;
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      min-width: 150px;
-      max-width: 150px;
+      width: 160px;
       height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
+      flex-shrink: 0;
     }
     .boton.si {
       background-color: #ff69b4;
@@ -81,22 +77,6 @@
     }
     .boton.no:hover {
       background-color: #666;
-    }
-    #notification {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #ff69b4;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 25px;
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.3rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-      z-index: 1000;
     }
 
     /* Animaciones */
@@ -171,73 +151,87 @@
       .boton {
         width: 100%;
         max-width: none;
-        min-width: auto;
         font-size: 1.3rem;
-        padding: 12px 0;
+        padding: 10px 0;
+        height: 45px;
       }
+    }
+
+    /* Notificación estilo WhatsApp arriba */
+    #notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #25d366;
+      color: white;
+      padding: 12px 20px 12px 50px;
+      border-radius: 25px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #notification.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #notification::before {
+      content: "✔";
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: bold;
+      font-size: 1.5rem;
     }
   </style>
 </head>
 <body>
-  <h1>Cristofer Andrey Castro Porras</h1>
-  <p>de cédula 207810112</p>
-  <p>¿Quieres compartir toda tu vida conmigo?</p>
-  <div class="emoji">🥰🌟💞</div>
-
-  <form id="form-si" method="POST">
-    <input type="hidden" name="Cristofer dijo" value="¡Sí, quiero compartir mi vida contigo! 🥰💞">
-    <button type="submit" class="boton si">💖 Sí, quiero</button>
-  </form>
-
-  <form id="form-no" method="POST" style="margin-top: 1rem;">
-    <input type="hidden" name="Cristofer dijo" value="No, gracias. Pero te quiero igual. 💔">
-    <button type="submit" class="boton no">❌ No, gracias</button>
-  </form>
-
   <div id="notification"></div>
 
-  <script>
-    const email = "melanymatamoros19@gmail.com"; // correo al que se envía
-    const urlSubmit = `https://formsubmit.co/ajax/${email}`;
+  <h1>Cristofer Andrey Castro Porras</h1>
+  <p>de cédula 207810112</p>
+  <p>¿Quieres pasar mucho tiempo a mi lado?</p>
+  <div class="emoji">💖🌹✨</div>
 
+  <form id="form-yes" action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="_blank">
+    <input type="hidden" name="Cristofer dijo" value="¡Sí, quiero pasar mucho tiempo contigo!">
+    <button type="submit" class="boton si">Sí, quiero</button>
+  </form>
+
+  <form id="form-no" action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="_blank" style="margin-top: 1rem;">
+    <input type="hidden" name="Cristofer dijo" value="No, gracias. Pero te quiero igual.">
+    <button type="submit" class="boton no">No, gracias</button>
+  </form>
+
+  <script>
     const notification = document.getElementById('notification');
 
     function showNotification(message) {
       notification.textContent = message;
-      notification.style.opacity = '1';
-      notification.style.pointerEvents = 'auto';
-
+      notification.classList.add('show');
       setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.pointerEvents = 'none';
+        notification.classList.remove('show');
       }, 3500);
     }
 
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      const form = event.target;
-      const formData = new FormData(form);
+    // Capturamos los formularios y evitamos el envío normal para mostrar notificación
+    document.getElementById('form-yes').addEventListener('submit', function(e) {
+      e.preventDefault();
+      showNotification("¡Gracias! Tu respuesta ha sido enviada");
+      // Abrir el enlace de envío en nueva pestaña
+      window.open(this.action, '_blank');
+    });
 
-      fetch(urlSubmit, {
-        method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: formData
-      })
-      .then(response => {
-        if (response.ok) {
-          showNotification("¡Gracias! Tu respuesta ha sido enviada 💖");
-          form.querySelector('button').disabled = true;
-        } else {
-          showNotification("Error al enviar. Por favor intenta otra vez.");
-        }
-      })
-      .catch(() => {
-        showNotification("Error al enviar. Por favor intenta otra vez.");
-      });
-    }
-
-    document.getElementById('form-si').addEventListener('submit', handleFormSubmit);
-    document.getElementById('form-no').addEventListener('submit', handleFormSubmit);
+    document.getElementById('form-no').addEventListener('submit', function(e) {
+      e.preventDefault();
+      showNotification("¡Gracias! Tu respuesta ha sido enviada");
+      window.open(this.action, '_blank');
+    });
 
     // Corazones flotando
     for (let i = 0; i < 25; i++) {
@@ -251,4 +245,3 @@
   </script>
 </body>
 </html>
-
