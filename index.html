@@ -219,18 +219,12 @@
       }, 3500);
     }
 
-    // Capturamos los formularios y evitamos el envío normal para mostrar notificación
-    document.getElementById('form-yes').addEventListener('submit', function(e) {
-      e.preventDefault();
+    document.getElementById('form-yes').addEventListener('submit', function() {
       showNotification("¡Gracias! Tu respuesta ha sido enviada");
-      // Abrir el enlace de envío en nueva pestaña
-      window.open(this.action, '_blank');
     });
 
-    document.getElementById('form-no').addEventListener('submit', function(e) {
-      e.preventDefault();
+    document.getElementById('form-no').addEventListener('submit', function() {
       showNotification("¡Gracias! Tu respuesta ha sido enviada");
-      window.open(this.action, '_blank');
     });
 
     // Corazones flotando
@@ -245,3 +239,4 @@
   </script>
 </body>
 </html>
+
