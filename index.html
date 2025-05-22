@@ -19,10 +19,12 @@
       padding: 20px;
       overflow: hidden;
       position: relative;
+      margin: 0;
     }
     h1, p {
       opacity: 0;
       animation: fadeIn 2s ease forwards;
+      margin: 0.3em 0;
     }
     h1 {
       font-size: 4rem;
@@ -50,6 +52,7 @@
       opacity: 1;
       animation: fadeIn 2s ease forwards;
       animation-delay: 2s;
+      flex-wrap: wrap; /* para que en móvil los botones bajen si no caben */
     }
     .boton {
       font-size: 1.5rem;
@@ -60,6 +63,8 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       min-width: 140px;
+      flex: 1 1 140px; /* que crezca y se reduzca, mínimo 140px */
+      max-width: 180px;
     }
     .boton.si {
       background-color: #ff69b4;
@@ -73,6 +78,8 @@
     .boton.no:hover {
       background-color: #666;
     }
+
+    /* Animaciones */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -122,6 +129,33 @@
         opacity: 0;
       }
     }
+
+    /* Media queries para pantallas pequeñas */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      p:nth-of-type(1) {
+        font-size: 1.2rem;
+      }
+      p:nth-of-type(2) {
+        font-size: 1.8rem;
+      }
+      .emoji {
+        font-size: 2rem;
+      }
+      form {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .boton {
+        width: 100%;
+        max-width: none;
+        min-width: auto;
+        font-size: 1.3rem;
+        padding: 12px 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -152,5 +186,3 @@
   </script>
 </body>
 </html>
-
-
