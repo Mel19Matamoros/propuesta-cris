@@ -174,17 +174,20 @@
       .emoji {
         font-size: 2rem;
       }
-      form {
-        flex-direction: column;
-        gap: 15px;
-      }
-      .boton {
-        width: 100%;
-        max-width: none;
-        min-width: auto;
-        font-size: 1.3rem;
-        padding: 12px 0;
-      }
+       form {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 320px; /* para que no sean demasiado anchos */
+  }
+  .boton {
+    width: 100%;      /* ocupar todo el ancho del form */
+    max-width: none;
+    min-width: auto;
+    font-size: 1.4rem; /* un poco más grande para mejor legibilidad */
+    padding: 10px 0;   /* un poco menos alto que antes */
+    border-radius: 8px;
+  }
     }
   </style>
 </head>
