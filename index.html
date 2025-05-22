@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Una Pregunta Especial 💍</title>
-  <!-- Tipografía romántica -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
     body {
@@ -21,56 +20,59 @@
       overflow: hidden;
       position: relative;
     }
-
     h1, p {
       opacity: 0;
       animation: fadeIn 2s ease forwards;
     }
-
     h1 {
       font-size: 4rem;
       animation-delay: 0.5s;
     }
-
     p:nth-of-type(1) {
       font-size: 2rem;
       animation-delay: 1s;
     }
-
     p:nth-of-type(2) {
       font-size: 2.5rem;
       font-weight: bold;
       animation-delay: 1.5s;
     }
-
     .emoji {
       font-size: 3rem;
       animation: bounce 2s infinite;
       margin-top: 1rem;
     }
-
     form {
       margin-top: 2rem;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      opacity: 1;
       animation: fadeIn 2s ease forwards;
       animation-delay: 2s;
-      opacity: 0;
     }
-
     .boton {
       font-size: 1.5rem;
       padding: 10px 25px;
       border-radius: 10px;
       border: none;
-      background-color: #ff69b4;
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      min-width: 140px;
     }
-
-    .boton:hover {
+    .boton.si {
+      background-color: #ff69b4;
+    }
+    .boton.si:hover {
       background-color: #ff1493;
     }
-
+    .boton.no {
+      background-color: #999;
+    }
+    .boton.no:hover {
+      background-color: #666;
+    }
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -81,13 +83,10 @@
         transform: translateY(0);
       }
     }
-
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-
-    /* Corazones flotando */
     .heart {
       position: absolute;
       width: 20px;
@@ -97,7 +96,6 @@
       animation: float 6s infinite ease-in;
       opacity: 0.7;
     }
-
     .heart::before, .heart::after {
       content: '';
       position: absolute;
@@ -106,17 +104,14 @@
       background: red;
       border-radius: 50%;
     }
-
     .heart::before {
       top: -10px;
       left: 0;
     }
-
     .heart::after {
       left: -10px;
       top: 0;
     }
-
     @keyframes float {
       0% {
         transform: translateY(0) rotate(45deg);
@@ -130,19 +125,21 @@
   </style>
 </head>
 <body>
-
   <h1>Cristofer Andrey Castro Porras</h1>
   <p>de cédula 207810112</p>
   <p>¿Te quieres casar conmigo?</p>
   <div class="emoji">💍❤️👰</div>
 
-  <!-- Formulario con botón que envía correo -->
-  <form action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST">
+  <form action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="_blank">
     <input type="hidden" name="Cristofer dijo" value="¡Sí, acepto casarme contigo, mi amor! 💍❤️">
-    <button type="submit" class="boton">💖 Sí, acepto</button>
+    <button type="submit" class="boton si">💖 Sí, acepto</button>
   </form>
 
-  <!-- Script para crear corazones flotantes -->
+  <form action="https://formsubmit.co/melanymatamoros19@gmail.com" method="POST" target="_blank" style="margin-top: 1rem;">
+    <input type="hidden" name="Cristofer dijo" value="No, gracias. Pero te amo igual. 💔">
+    <button type="submit" class="boton no">❌ No, gracias</button>
+  </form>
+
   <script>
     for (let i = 0; i < 25; i++) {
       const heart = document.createElement('div');
@@ -153,7 +150,6 @@
       document.body.appendChild(heart);
     }
   </script>
-
 </body>
 </html>
 
