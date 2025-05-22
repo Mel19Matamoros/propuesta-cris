@@ -87,30 +87,26 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #25d366;
+      background-color: #25d366; /* verde whatsapp */
       color: white;
-      padding: 12px 20px 12px 50px;
+      padding: 12px 25px;
       border-radius: 25px;
       font-family: 'Dancing Script', cursive;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       opacity: 0;
       pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       transition: opacity 0.4s ease;
       z-index: 1000;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    #notification.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    #notification::before {
-      content: "✔";
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-weight: bold;
-      font-size: 1.5rem;
+    #notification svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+      flex-shrink: 0;
     }
 
     /* Animaciones */
@@ -199,52 +195,63 @@
   <div class="emoji">🥰🌟💞</div>
 
   <form id="form-si" method="POST">
-    <input type="hidden" name="Cristofer dijo" value="¡Sí, quiero compartir mi vida contigo!">
+    <input type="hidden" name="email" value="melanymatamoros19@gmail.com" />
+    <input type="hidden" name="Cristofer dijo" value="¡Sí, quiero compartir mi vida contigo! 🥰💞">
     <button type="submit" class="boton si">Sí, quiero</button>
   </form>
 
   <form id="form-no" method="POST" style="margin-top: 1rem;">
+    <input type="hidden" name="email" value="melanymatamoros19@gmail.com" />
     <input type="hidden" name="Cristofer dijo" value="No, gracias. Pero te quiero igual.">
     <button type="submit" class="boton no">No, gracias</button>
   </form>
 
-  <div id="notification"></div>
+  <div id="notification" role="alert" aria-live="assertive">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+    </svg>
+    <span id="notification-message"></span>
+  </div>
 
   <script>
-    const email = "melanymatamoros19@gmail.com";
+    const email = "melanymatamoros19@gmail.com"; // destinatario
     const urlSubmit = `https://formsubmit.co/ajax/${email}`;
 
     const notification = document.getElementById('notification');
+    const notificationMessage = document.getElementById('notification-message');
 
     function showNotification(message) {
-      notification.textContent = message;
-      notification.classList.add('show');
+      notificationMessage.textContent = message;
+      notification.style.opacity = '1';
+      notification.style.pointerEvents = 'auto';
+
       setTimeout(() => {
-        notification.classList.remove('show');
+        notification.style.opacity = '0';
+        notification.style.pointerEvents = 'none';
       }, 3500);
     }
 
-    function handleFormSubmit(event) {
+    async function handleFormSubmit(event) {
       event.preventDefault();
       const form = event.target;
       const formData = new FormData(form);
 
-      fetch(urlSubmit, {
-        method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: formData
-      })
-      .then(response => {
+      try {
+        const response = await fetch(urlSubmit, {
+          method: "POST",
+          headers: { 'Accept': 'application/json' },
+          body: formData
+        });
+
         if (response.ok) {
           showNotification("¡Gracias! Tu respuesta ha sido enviada");
           form.querySelector('button').disabled = true;
         } else {
           showNotification("Error al enviar. Por favor intenta otra vez.");
         }
-      })
-      .catch(() => {
+      } catch {
         showNotification("Error al enviar. Por favor intenta otra vez.");
-      });
+      }
     }
 
     document.getElementById('form-si').addEventListener('submit', handleFormSubmit);
